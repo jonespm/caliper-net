@@ -4,7 +4,7 @@
 
 The Caliper Analytics® Specification provides a structured approach to describing, collecting and exchanging learning activity data at scale. Caliper also defines an application programming interface (the Sensor API™) for marshalling and transmitting event data from instrumented applications to target endpoints for storage, analysis and use.
 
-**caliper-net** is a reference implementation of the Sensor API™ written in Javascript.
+**caliper-net** is a reference implementation of the Sensor API™ written in .NET.
 
 ## Branches
 
