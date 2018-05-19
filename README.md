@@ -1,12 +1,27 @@
-# caliper-net
-IMS Global caliper-net
-==============
+# IMS Global Learning Consortium, Inc.
 
-# Overview
+## caliper-net
 
-**caliper-net** is a .NET client for [Caliper](http://www.imsglobal.org/caliper) that provides an implementation of the Caliper SensorAPI™.
+The Caliper Analytics® Specification provides a structured approach to describing, collecting and exchanging learning activity data at scale. Caliper also defines an application programming interface (the Sensor API™) for marshalling and transmitting event data from instrumented applications to target endpoints for storage, analysis and use.
 
-# Getting Started
+**caliper-net** is a reference implementation of the Sensor API™ written in Javascript.
+
+## Branches
+
+master: stable, deployable branch that stores the official release history.
+develop: unstable development branch. Current work that targets a future release is merged to this branch.
+Tags
+
+caliper-net releases are tagged and versioned MAJOR.MINOR.PATCH[-label] (e.g., 1.1.0). Pre-release tags are identified with an extensions label (e.g., "1.2.0-RC01"). The tags are stored in this repository.
+
+## Contributing
+
+We welcome the posting of issues by non IMS Global Learning Consortium members (e.g., feature
+requests, bug reports, questions, etc.) but we do not accept contributions in the form of pull
+requests from non-members. See CONTRIBUTING.md for more
+information.
+
+## Getting Started
 
 First, instantiate a new Caliper Sensor, specifying a sensor ID (used to distinguish the source of events), then register a Caliper endpoint where events will be sent to.
 
@@ -154,10 +169,11 @@ The build output will be under `.\src\ImsGlobal.Caliper\bin\Debug` or `.src\ImsG
 
 ```
 
-## Documentation
+## License
 
-Documentation is available at [http://www.imsglobal.org/caliper](https://www.imsglobal.org/caliper).
+This project is licensed under the terms of the GNU Lesser General Public License (LGPL), version 3.
+See the LICENSE file for details. For additional information on licensing options for
+IMS members, please see the NOTICE file.
 
-© 2018 IMS Global Learning Consortium, Inc. All Rights Reserved. Trademark Information- http://www.imsglobal.org/copyright.html
-
-For license information contact info@imsglobal.org and read the license file contained in the repository.
+©2018 IMS Global Learning Consortium, Inc. All Rights Reserved.
+Trademark Information - [http://www.imsglobal.org/copyright.html](http://www.imsglobal.org/copyright.html)
