@@ -7,8 +7,9 @@ namespace ImsGlobal.Caliper {
 	public sealed class CaliperContext : IJsonValue {
 
 		public static readonly CaliperContext Context = new CaliperContext( "http://purl.imsglobal.org/ctx/caliper/v1p1" );
+        public static readonly CaliperContext SearchProfileExtension = new CaliperContext("http://purl.imsglobal.org/ctx/caliper/v1p1/SearchProfile-extension");
 
-		public CaliperContext() {}
+        public CaliperContext() {}
 
 		public CaliperContext( string value ) {
 			this.Value = value;

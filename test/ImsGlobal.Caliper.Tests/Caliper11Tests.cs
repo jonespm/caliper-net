@@ -24,7 +24,8 @@ namespace ImsGlobal.Caliper.Tests {
 	using ImsGlobal.Caliper.Events.Media;
 	using ImsGlobal.Caliper.Events.Outcome;
 	using ImsGlobal.Caliper.Events.Reading;
-	using ImsGlobal.Caliper.Events.Session;
+    using ImsGlobal.Caliper.Events.Search;
+    using ImsGlobal.Caliper.Events.Session;
 	using ImsGlobal.Caliper.Events.Tool;
 	using ImsGlobal.Caliper.Tests.SimpleHelpers;
 	using ImsGlobal.Caliper.Protocol;
@@ -477,13 +478,13 @@ namespace ImsGlobal.Caliper.Tests {
 		public void EntityLtiSession_MatchesReferenceJson() {
 
 			var entity = new LtiSession(
-				"https://example.com/sessions/b533eb02823f31024e6b7f53436c42fb99b31241") {
+                "https://example.edu/lti/sessions/b533eb02823f31024e6b7f53436c42fb99b31241") {
 				User = new Person("https://example.edu/users/554433"),
-				MessageParameters = new Caliper11TestEntities.LtiParams(),
-				DateCreated = Instant.FromUtc(2016, 11, 15, 10, 15, 00),
-				StartedAt = Instant.FromUtc(2016, 11, 15, 10, 15, 00)
+                MessageParameters = new Caliper11TestEntities.LtiParamsLtiSession(),
+                DateCreated = Instant.FromUtc(2018, 11, 15, 10, 15, 00),
+                StartedAt = Instant.FromUtc(2018, 11, 15, 10, 15, 00)
 
-			};
+            };
 
 			JsonAssertions.AssertSameObjectJson(entity, "caliperEntityLtiSession");
 		}
@@ -1631,8 +1632,8 @@ namespace ImsGlobal.Caliper.Tests {
 				FederatedSession = new LtiSession(
 					"urn:uuid:1c519ff7-3dfa-4764-be48-d2fb35a2925a") {
 					User = Caliper11TestEntities.Person554433,
-					MessageParameters = new Caliper11TestEntities.LtiParams(),
-					DateCreated = Caliper11TestEntities.Instant20161115101500,
+                    MessageParameters = new Caliper11TestEntities.LtiParamsViewViewedFedSession(),
+                    DateCreated = Caliper11TestEntities.Instant20161115101500,
 					StartedAt = Caliper11TestEntities.Instant20161115101500
 				}
 			};
@@ -1874,5 +1875,28 @@ namespace ImsGlobal.Caliper.Tests {
 				jobDate = "2016-11-16T01:01:00.000Z",
 			};
 		}
-	}
+
+        [Test]
+        public void EventSearchSearched_MatchesReferenceJson()
+        {
+            var searchEvent = new SearchEvent(
+                "urn:uuid:cb3878ed-8240-4c6d-9fee-77221810f5e4", Action.Searched)
+            {
+                Actor = new Person("https://example.edu/users/554433") { HideCaliperContext = true },
+                Object = Caliper11TestEntities.CatalogApp,
+                EventTime = Caliper11TestEntities.Instant20181115100500,
+                Generated = Caliper11TestEntities.SearchIMSCaliperAnalytics,
+                EdApp = Caliper11TestEntities.SoftwareAppV2,
+                Group = Caliper11TestEntities.CourseSectionCPS43501Fall18,
+                Membership = Caliper11TestEntities.EntityMembership554433Learner_2018,
+                Session = Caliper11TestEntities.Session6259_2018
+            };
+
+            var coerced = JsonAssertions.coerce(searchEvent,
+                new string[] { "..edApp", "..searchProvider", "..searchTarget", "..query.creator", "..query.searchTarget", "..generated.searchResults", "..membership.member", "..membership.organization" });
+
+            JsonAssertions.AssertSameObjectJson(coerced, "caliperEventSearchSearched");
+        }
+
+    }
 }
