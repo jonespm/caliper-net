@@ -13,6 +13,7 @@ using ImsGlobal.Caliper.Entities.Session;
 using ImsGlobal.Caliper.Events.Outcome;
 using Newtonsoft.Json;
 using NodaTime;
+using ImsGlobal.Caliper.Entities.Search;
 
 namespace ImsGlobal.Caliper.Tests {
 
@@ -59,10 +60,11 @@ namespace ImsGlobal.Caliper.Tests {
 		public static Instant Instant20161101060000 = Instant.FromUtc(2016, 11, 01, 06, 00, 00);
 		public static Instant Instant20161115101546 = Instant.FromUtc(2016, 11, 15, 10, 15, 46);
 		public static Instant Instant20161115101720 = Instant.FromUtc(2016, 11, 15, 10, 17, 20);
-
-
-
-		public static Person Person778899 = new Person("https://example.edu/users/778899");
+        public static Instant Instant20180801060000 = Instant.FromUtc(2018, 08, 01, 06, 00, 00);
+        public static Instant Instant20181115100000 = Instant.FromUtc(2018, 11, 15, 10, 00, 00);
+        public static Instant Instant20181115100500 = Instant.FromUtc(2018, 11, 15, 10, 05, 00);
+        
+        public static Person Person778899 = new Person("https://example.edu/users/778899");
 		public static Person Person554433 = new Person("https://example.edu/users/554433");
 		public static Person Person112233 = new Person("https://example.edu/users/112233");
 		public static Person Person554433dates = new Person("https://example.edu/users/554433") {
@@ -80,7 +82,18 @@ namespace ImsGlobal.Caliper.Tests {
 			DateCreated = Instant20160801060000
 		};
 
-		public static Membership EntityMembership778899Learner = new Membership
+        public static Membership EntityMembership554433Learner_2018 = new Membership
+             ("https://example.edu/terms/201601/courses/7/sections/1/rosters/1")
+        {
+            Member = new Person("https://example.edu/users/554433"),
+            Organization = new Organization("https://example.edu/terms/201601/courses/7/sections/1"),
+            Roles = new[] { Role.Learner },
+            Status = Status.Active,
+            DateCreated = Instant20180801060000,
+            HideCaliperContext = true
+        };
+
+        public static Membership EntityMembership778899Learner = new Membership
 			("https://example.edu/terms/201601/courses/7/sections/1/rosters/1") {
 			Member = new Person("https://example.edu/users/778899"),
 			Organization = new Organization("https://example.edu/terms/201601/courses/7/sections/1"),
@@ -111,7 +124,15 @@ namespace ImsGlobal.Caliper.Tests {
 			}		
 		};
 
-		public static Session Session6259 = new Session("https://example.com/sessions/1f6442a482de72ea6ad134943812bff564a76259") {
+        public static CourseSection CourseSectionCPS43501Fall18 = new CourseSection
+              ("https://example.edu/terms/201601/courses/7/sections/1")
+        {
+            CourseNumber = "CPS 435-01",
+            AcademicSession = "Fall 2018",
+            HideCaliperContext = true
+        };
+        
+        public static Session Session6259 = new Session("https://example.com/sessions/1f6442a482de72ea6ad134943812bff564a76259") {
 			StartedAt = Instant20161115100000
 		};
 
@@ -144,7 +165,13 @@ namespace ImsGlobal.Caliper.Tests {
 			StartedAt = Instant20161112100000
 		};
 
-		public static Session SessionCd50 = new Session("https://example.edu/sessions/1d6fa9adf16f4892650e4305f6cf16610905cd50") {
+        public static Session Session6259_2018 = new Session("https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259")
+        {
+            StartedAt = Instant20181115100000,
+            HideCaliperContext = true
+        };
+
+        public static Session SessionCd50 = new Session("https://example.edu/sessions/1d6fa9adf16f4892650e4305f6cf16610905cd50") {
 			StartedAt = Instant20161115101200
 		};
 
@@ -167,7 +194,9 @@ namespace ImsGlobal.Caliper.Tests {
 			Version = "v2"
 		};
 
-		public static AssessmentItem AssessmentItem2 = new AssessmentItem("https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/2") {
+        public static SoftwareApplication CatalogApp = new SoftwareApplication("https://example.edu/catalog") { HideCaliperContext = true };
+
+        public static AssessmentItem AssessmentItem2 = new AssessmentItem("https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/2") {
 			Name = "Assessment Item 2",
 			IsPartOf = new Assessment("https://example.edu/terms/201601/courses/7/sections/1/assess/1"),
 			DateToStartOn = Instant20161114050000,
@@ -459,7 +488,71 @@ namespace ImsGlobal.Caliper.Tests {
 
 		};
 
-		public static DigitalResource DigitalResourceSyllabusPDF = new DigitalResource(
+        public class LtiParamsViewViewedFedSession
+        {
+            public string lti_message_type = "basic-lti-launch-request";
+
+            public string lti_version = "LTI-1p0";
+
+            public string context_id = "4f1a161f-59c3-43e5-be37-445ad09e3f76";
+
+            public string context_type = "urn:lti:context-type:ims/lis/CourseSection";
+
+            public string context_label = "SI182";
+
+            public string context_title = "Design of Personal Environments";
+
+            public string resource_link_id = "6b37a950-42c9-4117-8f4f-03e6e5c88d24";
+
+            public string[] roles = new[] { "urn:lti:role:ims/lis/Learner" };
+
+            public string tool_consumer_instance_guid = "SomeLMS.example.edu";
+
+            public string tool_consumer_instance_description = "Sample University (SomeLMS)";
+
+            public string user_id = "0ae836b9-7fc9-4060-006f-27b2066ac545";
+
+            public Instant custom_xstart = Instant.FromUtc(2016, 08, 21, 01, 00, 00);
+
+            public string ext_com_somelms_example_course_section_instructor = "https://example.edu/faculty/1234";
+        };
+
+        public class LtiParamsLtiSession
+        {
+            public string lti_message_type = "basic-lti-launch-request";
+
+            public string lti_version = "LTI-1p0";
+
+            public string context_id = "https://example.edu/terms/201801/courses/7/sections/1";
+
+            public string context_type = "urn:lti:context-type:ims/lis/CourseSection";
+
+            public string context_label = "CPS 435-01";
+
+            public string context_title = "CPS 435 Learning Analytics, Section 01";
+
+            public string resource_link_id = "6b37a950-42c9-4117-8f4f-03e6e5c88d24";
+
+            public string[] roles = new[] { "urn:lti:role:ims/lis/Learner" };
+
+            public string tool_consumer_instance_guid = "SomeLMS.example.edu";
+
+            public string tool_consumer_instance_description = "Sample University (SomeLMS)";
+
+            public string user_id = "0ae836b9-7fc9-4060-006f-27b2066ac545";
+
+            public Instant custom_xstart = Instant.FromUtc(2016, 08, 21, 01, 00, 00);
+
+            public string custom_caliper_profile_url = "https://example.edu/lti/tc/cps";
+
+            public string custom_caliper_session_id = "1c519ff7-3dfa-4764-be48-d2fb35a2925a";
+
+            public string ext_com_somelms_example_course_section_instructor = "https://example.edu/faculty/1234";
+        };
+
+
+
+        public static DigitalResource DigitalResourceSyllabusPDF = new DigitalResource(
 			"https://example.edu/terms/201601/courses/7/sections/1/resources/1/syllabus.pdf") {
 			Name = "Course Syllabus",
 			MediaType = "application/pdf",
@@ -473,5 +566,27 @@ namespace ImsGlobal.Caliper.Tests {
 
 		};
 
-	}
+        public static SearchResponse SearchIMSCaliperAnalytics = new SearchResponse(
+            "https://example.edu/users/554433/search?query=IMS%20AND%20%28Caliper%20OR%20Analytics%29")
+        {
+            SearchProvider = SoftwareAppV2,
+            SearchTarget = new Entity("https://example.edu/catalog"),
+            Query = new Query(
+                "https://example.edu/users/554433/search?query=IMS%20AND%20%28Caliper%20OR%20Analytics%29")
+            {
+                Creator = Person554433,
+                SearchTarget = new Entity("https://example.edu/catalog"),
+                SearchTerms = "IMS AND (Caliper OR Analytics)",
+                DateCreated = Instant20181115100500,
+                HideCaliperContext = true
+            },
+            SearchResultsItemCount = 3,
+            SearchResults = new[] {
+                new DigitalResource("https://example.edu/catalog/record/01234?query=IMS%20AND%20%28Caliper%20OR%20Analytics%29"),
+                new DigitalResource("https://example.edu/catalog/record/09876?query=IMS%20AND%20%28Caliper%20OR%20Analytics%29"),
+                new DigitalResource("https://example.edu/catalog/record/05432?query=IMS%20AND%20%28Caliper%20OR%20Analytics%29")
+            },
+            HideCaliperContext = true
+        };
+    }
 }

@@ -40,10 +40,12 @@ namespace ImsGlobal.Caliper.Entities
 		public static readonly EntityType Page = new EntityType("Page");
 		public static readonly EntityType Person = new EntityType("Person");
 		public static readonly EntityType Organization = new EntityType("Organization");
-		public static readonly EntityType Response = new EntityType("Response");
+        public static readonly EntityType Query = new EntityType("Query");
+        public static readonly EntityType Response = new EntityType("Response");
 		public static readonly EntityType Result = new EntityType("Result");
 		public static readonly EntityType Score = new EntityType("Score");
-		public static readonly EntityType Session = new EntityType("Session");
+        public static readonly EntityType SearchResponse = new EntityType("SearchResponse");
+        public static readonly EntityType Session = new EntityType("Session");
 		public static readonly EntityType Share = new EntityType("SharedAnnotation");
 		public static readonly EntityType SoftwareApplication = new EntityType("SoftwareApplication");
 		public static readonly EntityType SelectText = new EntityType("SelectTextResponse");

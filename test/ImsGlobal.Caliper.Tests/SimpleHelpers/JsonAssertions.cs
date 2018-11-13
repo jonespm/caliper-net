@@ -43,28 +43,70 @@ namespace ImsGlobal.Caliper.Tests.SimpleHelpers {
 			AssertSameObjectJson( obj, eventReferenceFile, true );
 		}
 
-		/// <summary>
-		/// Reduce the objects selected by the given JPath query strings to properties 
-		/// whose values are the id of the object.
-		/// </summary>
-		public static JObject coerce(object input, string[] select) {
+        /// <summary>
+        /// Reduce the objects selected by the given JPath query strings to properties 
+        /// whose values are the id of the object.
+        /// </summary>
+        public static JObject coerce(object input, string[] select)
+        {
 
-			var jobj = JsonSerializeUtils.toJobject( input );
+            var jobj = JsonSerializeUtils.toJobject(input);
 
-			foreach ( string query in select ) {
-				IEnumerable<JToken> tokens = jobj.SelectTokens(query).ToList();
+            foreach (string query in select)
+            {
+                IEnumerable<JToken> tokens = jobj.SelectTokens(query).ToList();
 
-				foreach ( JToken tok in tokens ) {
-					var obj = tok as JObject;
-					if (obj != null) {
-						tok.Parent.Replace(
-							new JProperty(( (JProperty)obj.Parent ).Name,
-							obj.GetValue( "id" ).ToString())
-						);
-					}
-				}
-			}
-			return jobj;
-		}
-	}
+                foreach (JToken tok in tokens)
+                {
+                    switch (tok.Type)
+                    {
+                        case JTokenType.Array:
+                            coerceJArray((JArray)tok);
+                            break;
+                        default:
+                            coerceJToken(tok);
+                            break;
+                    }
+                }
+            }
+            return jobj;
+        }
+
+        private static void coerceJToken(JToken tok)
+        {
+            var obj = tok as JObject;
+            if (obj != null)
+            {
+                tok.Parent.Replace(
+                    new JProperty(((JProperty)obj.Parent).Name,
+                    obj.GetValue("id").ToString())
+                );
+            }
+        }
+
+        private static void coerceJArray(JArray tok)
+        {
+            var results = new List<JToken>();
+            var removeList = new List<JToken>();
+
+            foreach (JToken item in tok.Children())
+            {
+                if (item is JObject obj)
+                {
+                    results.Add(obj.GetValue("id").ToString());
+                    removeList.Add(item);
+                }
+            }
+
+            foreach (JToken item in removeList)
+            {
+                tok.Remove(item);
+            }
+
+            foreach (JToken item in results)
+            {
+                tok.Add(item);
+            }
+        }
+    }
 }
