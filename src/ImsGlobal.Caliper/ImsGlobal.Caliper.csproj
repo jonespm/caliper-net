@@ -81,6 +81,9 @@
     <Compile Include="Entities\Search\Query.cs" />
     <Compile Include="Entities\Search\SearchResponse.cs" />
     <Compile Include="Entities\Session\LTISession.cs" />
+    <Compile Include="Entities\ToolLaunch\Link.cs" />
+    <Compile Include="Entities\ToolLaunch\LtiLink.cs" />
+    <Compile Include="Entities\ToolLaunch\ToolLaunchEvent.cs" />
     <Compile Include="Entities\W3c\IStatus.cs" />
     <Compile Include="Entities\W3c\IRole.cs" />
     <Compile Include="Entities\W3c\IMembership.cs" />

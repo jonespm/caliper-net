@@ -30,8 +30,12 @@ namespace ImsGlobal.Caliper.Entities
 		public static readonly EntityType Highlight = new EntityType("HighlightAnnotation");
 		public static readonly EntityType ImageObject = new EntityType("ImageObject");
 		public static readonly EntityType LearningObjective = new EntityType("LearningObjective");
-		public static readonly EntityType LtiSession = new EntityType("LtiSession");
-		public static readonly EntityType MediaLocation = new EntityType("MediaLocation");
+        public static readonly EntityType Link = new EntityType("Link");
+        public static readonly EntityType LtiDeepLinkingRequest = new EntityType("LtiDeepLinkingRequest");
+        public static readonly EntityType LtiLink = new EntityType("LtiLink");
+        public static readonly EntityType LtiResourceLinkRequest = new EntityType("LtiResourceLinkRequest");
+        public static readonly EntityType LtiSession = new EntityType("LtiSession");
+        public static readonly EntityType MediaLocation = new EntityType("MediaLocation");
 		public static readonly EntityType MediaObject = new EntityType("MediaObject");
 		public static readonly EntityType Membership = new EntityType("Membership");
 		public static readonly EntityType Message = new EntityType("Message");
