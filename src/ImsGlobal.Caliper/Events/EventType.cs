@@ -16,12 +16,10 @@ namespace ImsGlobal.Caliper.Events {
         public static readonly EventType Message = new EventType("MessageEvent");
         public static readonly EventType Navigation = new EventType( "NavigationEvent" );
 		public static readonly EventType Outcome = new EventType( "GradeEvent" );
-        public static readonly EventType Search = new EventType("SearchEvent");
-        public static readonly EventType Session = new EventType( "SessionEvent" );
+		public static readonly EventType Session = new EventType( "SessionEvent" );
         public static readonly EventType Thread = new EventType("ThreadEvent");
-        public static readonly EventType ToolLaunch = new EventType("ToolLaunchEvent");
-        public static readonly EventType ToolUse = new EventType("ToolUseEvent");
-        public static readonly EventType View = new EventType( "ViewEvent" );
+		public static readonly EventType ToolUse = new EventType("ToolUseEvent" );
+		public static readonly EventType View = new EventType( "ViewEvent" );
 
 
 		public EventType() {}

@@ -50,13 +50,12 @@ namespace ImsGlobal.Caliper.Protocol {
 			using( var client = new HttpClient() ) {
 
 				client.BaseAddress = _options.Host;
-
-                if (!string.IsNullOrWhiteSpace(_options.ApiKey))
-                {
-                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _options.ApiKey);
-                }
-
-                try {
+				
+				if ( !string.IsNullOrWhiteSpace( _options.ApiKey ) ) {
+				    client.DefaultRequestHeaders.Add( "Authorization", _options.ApiKey );
+				}
+				
+				try {
 
 					HttpResponseMessage response = await client.PostAsync( "", content );
 					response.EnsureSuccessStatusCode();
