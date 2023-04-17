@@ -1,4 +1,5 @@
 # IMS Global Learning Consortium, Inc.
+****NOTICE: 1EdTech will be moving Caliper to private repositories on June 17, 2023. Access to the repositories will be available for 1EdTech Contributing Members and Affiliates.  We encourage you to get involved in 1EdTech to support the Caliper work and get certified for Caliper.****
 
 ## caliper-net
 
